@@ -1669,7 +1669,7 @@
         }
       }
     },
-    ".NETFramework,Version=v4.6.1/win7-x86": {
+    ".NETFramework,Version=v4.6.1/win10-x64": {
       "AForge/2.2.5": {
         "type": "package",
         "compile": {
@@ -5318,9 +5318,9 @@
     "restore": {
       "projectUniqueName": "RPAOACLibrary",
       "projectName": "RPAOACLibrary",
-      "projectPath": "D:\\Thaibev\\RPAOACLibrary\\RPAOACLibrary\\.local",
+      "projectPath": "D:\\Thaibev\\RPAOACLibrary\\.local",
       "packagesPath": "C:\\Users\\11035585\\.nuget\\packages\\",
-      "outputPath": "D:\\Thaibev\\RPAOACLibrary\\RPAOACLibrary\\.local"
+      "outputPath": "D:\\Thaibev\\RPAOACLibrary\\.local"
     },
     "frameworks": {
       "net461": {
@@ -5351,7 +5351,12 @@
             "version": "[20.10.9, 20.10.9]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\11035585\\AppData\\Local\\UiPath\\app-21.4.4\\runtime.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\UiPath\\Studio\\runtime.json"
+      }
+    },
+    "runtimes": {
+      "win10-x64": {
+        "#import": []
       }
     }
   }

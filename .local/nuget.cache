@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Esayv3ZV09ie7R3FwXBwaE9+2EtlGqrwe1L03ei6tdodceprJW9A+/BjB8no6N1tEjPGvXskkTnmqN0FoVkQ6g==",
+  "dgSpecHash": "CKBvePtWIZpudHmRTx9MoctAJaZqs+3VH1rkwtoLvYshNAxJZWp7XfFhnAH+JHWqrEhHPLk2Twi3IaLAgYpFCg==",
   "success": true,
-  "projectFilePath": "D:\\Thaibev\\RPAOACLibrary\\RPAOACLibrary\\.local\\",
+  "projectFilePath": "D:\\Thaibev\\RPAOACLibrary\\.local\\",
   "expectedPackageFiles": [
     "C:\\Users\\11035585\\.nuget\\packages\\aforge\\2.2.5\\aforge.2.2.5.nupkg.sha512",
     "C:\\Users\\11035585\\.nuget\\packages\\aforge.imaging\\2.2.5\\aforge.imaging.2.2.5.nupkg.sha512",
