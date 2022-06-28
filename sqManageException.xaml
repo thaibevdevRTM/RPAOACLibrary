@@ -1,8 +1,9 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="sqManageException" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="sqManageException" this:sqManageException.rtnProjectName="ProcessName" this:sqManageException.rtnMailTo="MailException" this:sqManageException.rtnMailAccount="OAC" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="rtnProjectName" Type="InArgument(x:String)" />
-    <x:Property Name="rtnExceptionMessage" Type="InArgument(x:String)" />
     <x:Property Name="rtnMailTo" Type="InArgument(x:String)" />
+    <x:Property Name="rtnMailAccount" Type="InArgument(x:String)" />
+    <x:Property Name="rtnException" Type="InArgument(s:Exception)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -10,7 +11,7 @@
   <sap:VirtualizedContainerService.HintSize>1240,1224.8</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>sqManageException_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="29">
+    <scg:List x:TypeArguments="x:String" Capacity="58">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -40,6 +41,8 @@
       <x:String>System.Activities.DynamicUpdate</x:String>
       <x:String>UiPath.Platform.ObjectLibrary</x:String>
       <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Reflection</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -103,10 +106,10 @@
             <ui:AddLogFields.Fields>
               <InArgument x:TypeArguments="x:String" x:Key="ProcessFail">[rtnProjectname]</InArgument>
               <InArgument x:TypeArguments="x:String" x:Key="ProcessStatus">Fail</InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="ProcessMessage">[rtnExceptionMessage]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="ProcessMessage">[rtnException.Source + " " + rtnException.Message]</InArgument>
             </ui:AddLogFields.Fields>
           </ui:AddLogFields>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[rtnExceptionMessage]">
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[rtnException.Source + &quot; &quot; + rtnException.Message]">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -127,7 +130,7 @@
           </If>
           <ui:TakeScreenshot WaitBefore="{x:Null}" DisplayName="Take Screenshot 'SysListView32'" sap:VirtualizedContainerService.HintSize="333.6,107.2" sap2010:WorkflowViewState.IdRef="TakeScreenshot_1" Screenshot="[img]">
             <ui:TakeScreenshot.Target>
-              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="dd76b310-a765-4a44-bddb-fff0e3eefc43" InformativeScreenshot="38cd92443baf1be55d4252c399d71b5f" Selector="&lt;wnd app='explorer.exe' cls='Progman' title='Program Manager' /&gt;&lt;wnd cls='SysListView32' title='FolderView' /&gt;">
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="dd76b310-a765-4a44-bddb-fff0e3eefc43" InformativeScreenshot="14319207958cb18db47c1656ed53d7e0" Selector="&lt;wnd app='explorer.exe' cls='Progman' title='*' /&gt;&lt;wnd cls='SysListView32' title='*' /&gt;">
                 <ui:Target.TimeoutMS>
                   <InArgument x:TypeArguments="x:Int32" />
                 </ui:Target.TimeoutMS>
@@ -199,25 +202,13 @@
           <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke sqSendEmail workflow" sap:VirtualizedContainerService.HintSize="333.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="sqSendEmail.xaml">
             <ui:InvokeWorkflowFile.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="strEmailCC" />
-              <InArgument x:TypeArguments="x:Boolean" x:Key="isDevelop">
-                <Literal x:TypeArguments="x:Boolean" />
-              </InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="isDevelop">False</InArgument>
               <InArgument x:TypeArguments="sd:DataTable" x:Key="dtResult" />
-              <InArgument x:TypeArguments="x:String" x:Key="strPath">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="strPathError" />
-              </InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="strEmailTo">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="rtnMailTo" />
-              </InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="strSubject">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="&quot;[RPA_&quot;+rtnProjectName+&quot;_Error]: Process &quot;+rtnProjectName+&quot; had a problem!!&quot;" />
-              </InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="strBody">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="rtnExceptionMessage" />
-              </InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="strMailAccount">
-                <Literal x:TypeArguments="x:String">OAC</Literal>
-              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="strPath">[strPathError]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="strEmailTo">[rtnMailTo]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="strSubject">["[RPA_"+rtnProjectName+"_Error]: Process "+rtnProjectName+" had a problem!!"]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="strBody">[rtnException.Source + " " + rtnException.Message]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="strMailAccount">[rtnMailAccount]</InArgument>
             </ui:InvokeWorkflowFile.Arguments>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">

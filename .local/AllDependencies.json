@@ -5316,8 +5316,8 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "RPAOACLibrary",
-      "projectName": "RPAOACLibrary",
+      "projectUniqueName": "RPATBVOACLibrary",
+      "projectName": "RPATBVOACLibrary",
       "projectPath": "D:\\Thaibev\\RPAOACLibrary\\.local",
       "packagesPath": "C:\\Users\\11035585\\.nuget\\packages\\",
       "outputPath": "D:\\Thaibev\\RPAOACLibrary\\.local"
