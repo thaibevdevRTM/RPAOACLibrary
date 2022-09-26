@@ -88,7 +88,7 @@
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:GetIMAPMailMessages FilterExpression="{x:Null}" SecurePassword="{x:Null}" TimeoutMS="{x:Null}" DeleteMessages="False" DisplayName="Get IMAP Mail Messages" Email="[rtnMailUserName]" EnableSSL="True" FilterExpressionCharacterSet="US-ASCII" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="GetIMAPMailMessages_1" MailFolder="[rtnMailFolder]" MarkAsRead="False" Messages="[rtnMailLists]" OnlyUnreadMessages="True" OrderByDate="NewestFirst" Password="[rtnMailPassword]" Port="993" SecureConnection="Auto" Server="outlook.office365.com" Top="[rtnGetTop]">
+      <ui:GetIMAPMailMessages FilterExpression="{x:Null}" SecurePassword="{x:Null}" TimeoutMS="{x:Null}" DeleteMessages="False" DisplayName="Get IMAP Mail Messages" Email="[rtnMailUserName]" EnableSSL="True" FilterExpressionCharacterSet="US-ASCII" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="GetIMAPMailMessages_1" MailFolder="[rtnMailFolder]" MarkAsRead="True" Messages="[rtnMailLists]" OnlyUnreadMessages="True" OrderByDate="NewestFirst" Password="[rtnMailPassword]" Port="993" SecureConnection="Auto" Server="outlook.office365.com" Top="[rtnGetTop]">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
